@@ -15,8 +15,8 @@ function start() {
 
   console.log('Hello World!');
 
-  const cube1 = spawnPrimitive.cube(new Vector3(0, 0.35, -2), new Vector3(0.5,0.5,0.5), Quaternion.one, Color.pink, 0.45, true, 'Animated', undefined, true);
-  const cube2 = spawnPrimitive.cube(new Vector3(0, 0.35, -2), new Vector3(0.5,0.5,0.5), Quaternion.one, Color.purple, 0.45, true, 'Animated', undefined, false);
+  const cube1 = spawnPrimitive.cube(new Vector3(0, 0.35, -2), new Vector3(0.5, 0.5, 0.5), Quaternion.one, Color.pink, 0.45, true, 'Animated', undefined, true);
+  const cube2 = spawnPrimitive.cube(new Vector3(0, 0.35, -4), new Vector3(0.5, 0.5, 0.5), Quaternion.one, Color.purple, 0.45, true, 'Animated', undefined, false);
 
   moveBackAndForth(cube1);
   moveBackAndForth(cube2);
@@ -25,10 +25,13 @@ function start() {
 async function moveBackAndForth(entity: Entity) {
   let i = 10;
 
+  await Async.wait(1_000);
+
   const startPos = entity.pos;
   const endPos = startPos.add(new Vector3(3, 0, 0));
 
   while (i > 0) {
+    console.log(i);
     if (i % 2 === 0) {
       overTime.moveTo.start(entity, startPos, i * 1_000);
     }
