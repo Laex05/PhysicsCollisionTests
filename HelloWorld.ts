@@ -16,22 +16,22 @@ function start() {
   console.log('Hello World!');
 
   const cube1 = spawnPrimitive.cube(new Vector3(0, 0.35, -2), new Vector3(0.5, 0.5, 0.5), Quaternion.one, Color.pink, 0.7, true, 'Animated', undefined, true);
-  const cube1_2 = spawnPrimitive.cube(new Vector3(0, 1.1, -4), new Vector3(0.5, 2, 0.5), Quaternion.one, Color.pink, 0.7, true, 'Animated', undefined, true);
+  // const cube1_2 = spawnPrimitive.cube(new Vector3(0, 1.1, -4), new Vector3(0.5, 2, 0.5), Quaternion.one, Color.pink, 0.7, true, 'Animated', undefined, true);
   const cube2 = spawnPrimitive.cube(new Vector3(0, 0.35, -6), new Vector3(0.5, 0.5, 0.5), Quaternion.one, Color.purple, 0.45, true, 'Animated', undefined, false);
-  const cube2_2 = spawnPrimitive.cube(new Vector3(0, 1.1, -8), new Vector3(0.5, 2, 0.5), Quaternion.one, Color.purple, 0.45, true, 'Animated', undefined, false);
+  // const cube2_2 = spawnPrimitive.cube(new Vector3(0, 1.1, -8), new Vector3(0.5, 2, 0.5), Quaternion.one, Color.purple, 0.45, true, 'Animated', undefined, false);
   const cube3 = spawnPrimitive.cube(new Vector3(0, 0.35, -10), new Vector3(0.5, 0.5, 0.5), Quaternion.one, Color.lavender, 0.55, true, 'Static', undefined, true);
-  const cube3_2 = spawnPrimitive.cube(new Vector3(0, 1.1, -12), new Vector3(0.5, 2, 0.5), Quaternion.one, Color.lavender, 0.55, true, 'Static', undefined, true);
+  // const cube3_2 = spawnPrimitive.cube(new Vector3(0, 1.1, -12), new Vector3(0.5, 2, 0.5), Quaternion.one, Color.lavender, 0.55, true, 'Static', undefined, true);
   const cube4 = spawnPrimitive.cube(new Vector3(0, 0.35, -14), new Vector3(0.5, 0.5, 0.5), Quaternion.one, Color.cyan, 0.55, true, 'Static', undefined, false);
-  const cube4_2 = spawnPrimitive.cube(new Vector3(0, 1.1, -16), new Vector3(0.5, 2, 0.5), Quaternion.one, Color.cyan, 0.55, true, 'Static', undefined, false);
+  // const cube4_2 = spawnPrimitive.cube(new Vector3(0, 1.1, -16), new Vector3(0.5, 2, 0.5), Quaternion.one, Color.cyan, 0.55, true, 'Static', undefined, false);
 
   moveBackAndForth(cube1);
-  moveBackAndForth(cube1_2);
+  // moveBackAndForth(cube1_2);
   moveBackAndForth(cube2);
-  moveBackAndForth(cube2_2);
+  // moveBackAndForth(cube2_2);
   moveBackAndForth(cube3);
-  moveBackAndForth(cube3_2);
+  // moveBackAndForth(cube3_2);
   moveBackAndForth(cube4);
-  moveBackAndForth(cube4_2);
+  // moveBackAndForth(cube4_2);
 }
 
 async function moveBackAndForth(entity: Entity) {
@@ -41,6 +41,7 @@ async function moveBackAndForth(entity: Entity) {
 
   const startPos = entity.pos;
   const endPos = startPos.add(new Vector3(3, 0, 0));
+  const midPos = startPos.lerp(endPos, 0.5);
 
   while (i > 0) {
     if (i % 2 === 0) {
@@ -50,8 +51,10 @@ async function moveBackAndForth(entity: Entity) {
       overTime.moveTo.start(entity, endPos, i * 1_000);
     }
 
+    const sphere = spawnPrimitive.sphere(8,8, midPos, midPos.y - 0.05, Quaternion.one, Color.randomHue(), 1, 'Sphere', 'Physics', undefined);
     await Async.wait((i * 1_000) + 1_000);
-
+    sphere.destroy();
+    
     i--;
     if (i === 0) {
       i = 8;
