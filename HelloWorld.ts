@@ -46,15 +46,17 @@ async function moveBackAndForth(entity: Entity) {
   while (i > 0) {
     if (i % 2 === 0) {
       overTime.moveTo.start(entity, startPos, i * 1_000);
+      overTime.rotateTo.start(entity, Quaternion.one, i * 1_000);
     }
     else {
       overTime.moveTo.start(entity, endPos, i * 1_000);
+      overTime.rotateTo.start(entity, Quaternion.fromEuler(new Vector3(0, Math.PI, 0)), i * 1_000);
     }
 
     const sphere = spawnPrimitive.sphere(8,8, midPos, midPos.y - 0.05, Quaternion.one, Color.randomHue(), 1, 'Sphere', 'Physics', undefined);
     await Async.wait((i * 1_000) + 1_000);
     sphere.destroy();
-    
+
     i--;
     if (i === 0) {
       i = 8;
