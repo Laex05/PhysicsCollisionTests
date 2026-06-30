@@ -23,7 +23,7 @@ export const spawnPrimitive = {
  * @param type for animation and physics
  * @returns Entity created
  */
-function cube(pos: Vector3, scale: Vector3, rot: Quaternion, color: Color, alphaTransparency: number, hasCollider: boolean, type: BaseNodeTypes, parent: Entity | undefined): Entity {
+function cube(pos: Vector3, scale: Vector3, rot: Quaternion, color: Color, alphaTransparency: number, hasCollider: boolean, type: BaseNodeTypes, parent: Entity | undefined, isBoxCollider: boolean): Entity {
   const entity = new Entity(pos, rot, Vector3.one, parent, type);
 
   entity.mesh.create(...getShadeSmoothStretchedUVCube());
@@ -31,7 +31,12 @@ function cube(pos: Vector3, scale: Vector3, rot: Quaternion, color: Color, alpha
   entity.mesh.color.set(color, Math.min(1, alphaTransparency));
 
   if (hasCollider && entity.mesh.nodeID) {
-    entity.collider.createBox(Vector3.one);
+    if (isBoxCollider) {
+      entity.collider.createBox(Vector3.one);
+    }
+    else {
+      entity.collider.createFromMeshNode(entity.mesh.nodeID, 'Convex');
+    }
   }
 
   entity.scale = scale;
