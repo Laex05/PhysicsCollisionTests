@@ -30,6 +30,8 @@ function start() {
   moveBackAndForth(cube2_2);
   moveBackAndForth(cube3);
   moveBackAndForth(cube3_2);
+  moveBackAndForth(cube4);
+  moveBackAndForth(cube4_2);
 }
 
 async function moveBackAndForth(entity: Entity) {
@@ -51,5 +53,8 @@ async function moveBackAndForth(entity: Entity) {
     await Async.wait((i * 1_000) + 1_000);
 
     i--;
+    if (i === 0) {
+      i = 8;
+    }
   }
 }
